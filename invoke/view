@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "[☉] View invoked..."
+cat ~/.mirror/glyphs/map

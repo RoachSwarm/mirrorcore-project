@@ -1,0 +1,16 @@
+#!/bin/bash
+
+glyph="$1"
+map_file="$HOME/.mirror/glyphs/map"
+target=$(grep "^$glyph=" "$map_file" | cut -d= -f2)
+
+if [ -z "$target" ]; then
+  echo "[!] Unknown glyph: $glyph"
+  exit 1
+fi
+
+if command -v "$target" >/dev/null 2>&1; then
+  "$target"
+else
+  echo "[⟁] Glyph '$glyph' mapped to '$target' but no command found."
+fi

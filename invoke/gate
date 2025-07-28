@@ -1,0 +1,31 @@
+#!/bin/bash
+
+glyph="$1"
+cmd=$(grep -E "^$glyph[ =]" "$HOME/.mirror/glyphs/map" | head -n1 | cut -d= -f2 | xargs)
+
+if [ -z "$cmd" ]; then
+  echo "[⚠️] Unknown glyph: $glyph"
+  exit 1
+fi
+
+invoke="$HOME/.mirror/invoke/$cmd"
+prompt="$HOME/.mirror/prompts/$cmd"
+memorybook="$HOME/.mirror/memorybook/$cmd.md"
+
+echo -e "\n[🔹] Gate received: $glyph → $cmd"
+echo -e "[🌀] Launching '$glyph' → $cmd\n"
+
+if [ -f "$prompt" ]; then
+  echo -e "[📜] Prompt:\n$(cat "$prompt")\n"
+fi
+
+if [ -f "$memorybook" ]; then
+  echo "[📖] Memorybook entry: $memorybook"
+fi
+
+if [ ! -x "$invoke" ]; then
+  echo "[⚠️] Invoke command missing or not executable: $invoke"
+  exit 1
+fi
+
+"$invoke" "${@:2}"

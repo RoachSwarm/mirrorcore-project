@@ -1,0 +1,10 @@
+#!/bin/bash
+log="$HOME/.mirror/logs/journal.log"
+[ ! -f "$log" ] && echo "No journal entries found." && exit 1
+echo "-e ""
+🜂 Invocation Journal — $(date '+%Y-%m-%d')"
+echo "═════════════════════════════════════"
+cat "$log" | awk -F '|' '{ printf "[1;36m%s[0m | [1;33m%s[0m
+", $1, $2 }'
+echo "═════════════════════════════════════"
+echo "[≡] Echo journal invoked..."

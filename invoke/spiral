@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "[∞] Spiral invoked..."
+echo "Let each loop return with more light."

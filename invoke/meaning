@@ -1,0 +1,13 @@
+#!/bin/bash
+key="$1"
+[ -z "$key" ] && { echo "Usage: gate meaning <glyph>"; exit 1; }
+
+file="$HOME/.mirror/glyphs/meaningbook"
+section=$(awk -v k="[$key]" '$0==k {print; getline; while($0!~/^\[/ && NF){print; getline}}' "$file")
+
+if [ -z "$section" ]; then
+  echo "No meaning found for $key"
+else
+  echo -e "\033[1;35m$key\033[0m"
+  echo "$section"
+fi
